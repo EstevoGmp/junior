@@ -8,12 +8,20 @@
     <meta property="og:title" content="Pro Dia Nascer Feliz - Documentário sobre Educação">
     <meta property="og:description" content="Assista ao documentário essencial sobre as desigualdades e desafios da educação no Brasil. Direção de João Jardim.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://pro-dia-nascer.vercel.app/assets/image.jpg"> <!-- Substitua pelo URL da imagem do documentário -->
+    <meta property="og:image" content="https://pro-dia-nascer.vercel.app/assets/image.jpg">
     <meta property="og:url" content="https://youtu.be/C_eaWWegUCI">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
+        <label class="toggle-switch" title="Alternar modo escuro">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="toggle-slider">
+                <span class="toggle-icon moon">🌙</span>
+                <span class="toggle-icon sun">☀️</span>
+            </span>
+        </label>
+        
         <div class="film-strip top"></div>
         
         <div class="movie-icon">🎥</div>
@@ -60,11 +68,33 @@
         
         <div class="credits">
             <p>Documentário dirigido por João Jardim (2006)</p>
-            <p>Material preparado por: Fabricio A. Junior e Elaine</p>
+            <p>Material preparado por: Fabricio A. Junior e Elaine de Mattos</p>
         </div>
         
         <div class="film-strip bottom"></div>
     </div>
-    <div class="cinema-light"></div>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        if (localStorage.getItem('darkMode') === 'enabled' || 
+            (localStorage.getItem('darkMode') !== 'disabled' && prefersDarkScheme.matches)) {
+            body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+        
+        darkModeToggle.addEventListener('change', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
 </body>
 </html>
